@@ -30,6 +30,7 @@ class Boot {
       DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
     }
 
+    //It's test
     // where to search snippet
     LiftRules.addToPackages("jp.dip")
     Schemifier.schemify(true, Schemifier.infoF _, User)
