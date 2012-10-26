@@ -31,6 +31,7 @@ class Boot {
     }
 
     //It's test
+    //ok
     // where to search snippet
     LiftRules.addToPackages("jp.dip")
     Schemifier.schemify(true, Schemifier.infoF _, User)
