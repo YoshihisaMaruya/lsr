@@ -7,10 +7,10 @@ import _root_.net.liftweb.http.provider._
 import _root_.net.liftweb.sitemap._
 import _root_.net.liftweb.sitemap.Loc._
 import Helpers._
-import _root_.net.liftweb.mapper.{DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, StandardDBVendor}
-import _root_.java.sql.{Connection, DriverManager}
+import _root_.net.liftweb.mapper.{ DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, StandardDBVendor }
+import _root_.java.sql.{ Connection, DriverManager }
 import _root_.jp.dip.model._
-
+import net.liftweb.db.ConnectionIdentifier
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -18,30 +18,24 @@ import _root_.jp.dip.model._
  */
 class Boot {
   def boot {
+    DefaultConnectionIdentifier.jndiName = "lift"
     if (!DB.jndiJdbcConnAvailable_?) {
-      val vendor = 
-	new StandardDBVendor(Props.get("db.driver") openOr "org.h2.Driver",
-			     Props.get("db.url") openOr 
-			     "jdbc:h2:lift_proto.db;AUTO_SERVER=TRUE",
-			     Props.get("db.user"), Props.get("db.password"))
-
-      LiftRules.unloadHooks.append(vendor.closeAllConnections_! _)
-
-      DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
+     val vendor = new StandardDBVendor("com.mysql.jdbc.Driver", "jdbc:mysql://12.7.0.0.1:3306/lsr", Box("root"), Box("ma1192"))
+     LiftRules.unloadHooks.append(vendor.closeAllConnections_! _)
+     DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
     }
 
-    //It's test
-    //ok
+     Schemifier.schemify(true, Log.infoF _,Image)
     // where to search snippet
     LiftRules.addToPackages("jp.dip")
-    Schemifier.schemify(true, Schemifier.infoF _, User)
+   
 
     // Build SiteMap
+    //メニュバーにサイトマップ
     def sitemap() = SiteMap(
-      Menu("Home") / "index" >> User.AddUserMenusAfter, // Simple menu form
+      Menu("Home") / "index" // Simple menu form
       // Menu with special Link
-      Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
-	       "Static Content")))
+      )
 
     LiftRules.setSiteMapFunc(() => User.sitemapMutator(sitemap()))
 
@@ -71,3 +65,4 @@ class Boot {
     req.setCharacterEncoding("UTF-8")
   }
 }
+
