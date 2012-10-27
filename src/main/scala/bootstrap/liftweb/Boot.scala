@@ -34,14 +34,15 @@ class Boot {
     //ok
     // where to search snippet
     LiftRules.addToPackages("jp.dip")
-    Schemifier.schemify(true, Schemifier.infoF _, User)
+    Schemifier.schemify(true, Schemifier.infoF _, User,Image)
 
     // Build SiteMap
     def sitemap() = SiteMap(
       Menu("Home") / "index" >> User.AddUserMenusAfter, // Simple menu form
       // Menu with special Link
       Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
-	       "Static Content")))
+	       "Static Content")),
+	  Menu("動画のアップロード") / "postimage")
 
     LiftRules.setSiteMapFunc(() => User.sitemapMutator(sitemap()))
 
