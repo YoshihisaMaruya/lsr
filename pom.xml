@@ -78,6 +78,7 @@
       <version>1.6.9</version>
       <scope>test</scope>
     </dependency>
+    
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
@@ -91,7 +92,13 @@
       <version>${scala.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.21</version>
+    </dependency>
   </dependencies>
+  
 
   <build>
     <sourceDirectory>src/main/scala</sourceDirectory>
