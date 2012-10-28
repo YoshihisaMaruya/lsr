@@ -21,7 +21,7 @@ class Image extends LongKeyedMapper[Image] with IdPK {
   
   /**
    * ファイルを保存(パスはprops参照)
-   * (id,f) : file_path
+   * (id,f) : (video_file_path,thumbnail_file_path)
    */
   def saveFile(f: FileParamHolder): (String,String) = {
     //保存用ディレクトリ
@@ -47,20 +47,26 @@ class Image extends LongKeyedMapper[Image] with IdPK {
       //ビデオとサムレイルを作成
       val video_file_path = save_dir + id + ".flv"
       val thumbnail_file_path = save_dir + id + ".jpg"
-      println("####" + video_file_path + "####")
-      extention match {
-      	case "mp4" => Process("mv " + tmp_file_path + " "+ video_file_path).run
-      	case "mov" => Process("ffmpeg -i " + tmp_file_path +" " + video_file_path + ";rm " + tmp_file_path).run
+      val mv_cmds = extention match {
+      	case "mp4" => {
+      	  //mp4の場合、mvnした後にサムネイル作成
+      	  Process("mv " + tmp_file_path + " "+ video_file_path) #| Process("ffmpeg -i " + video_file_path +" -ss 1 -vframes 1 -f image2 " + thumbnail_file_path) run
+      	}
+      	case "mov" =>{
+      	  //movの場合、ffmpegの前にrmが終わってしまうので、rmできない 要対応
+      	  Process("ffmpeg -i " + tmp_file_path +" " + video_file_path) #| Process("ffmpeg -i " + tmp_file_path +" -ss 1 -vframes 1 -f image2 " + thumbnail_file_path) run
+      	}
       	case _ => null
       }
-      Process("ffmpeg -i " + video_file_path +" -ss 1 -vframes 1 -f image2 " + thumbnail_file_path)
       (video_file_path,thumbnail_file_path)
     }
+    
 
     //ファイル形式によって、コマンドを分ける。
     val extention = f.mimeType match {
       case "video/mp4" => "mp4"
       case "video/MOV" => "mov"
+      case "video/quicktime" => "mov"
       case _ => throw new Exception("ファイル形式をサポートしていません。")
     }
     try{

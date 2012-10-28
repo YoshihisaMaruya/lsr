@@ -30,14 +30,18 @@ class Postimage {
      val f = img.is.openOr(null)
      f match {
       case FileParamHolder(_, mine, fname, file) => {
+        log(mine)
         val image_model = Image.create
         image_model.save() //idを取得するために、一度保存
         try{
         	val file_path = image_model.saveFile(f)
-        	image_model.mimeType(mine).save()
+        	image_model.mimeType(mine).video_file_path(file_path._1).thumbnail_file_path(file_path._2).save
         }
         catch{
-          case e => S.error(e.getMessage())
+          case e => {
+            image_model.delete_!
+            S.error(e.getMessage())
+            }
         }
       }
       case _ => S.error("ファイルを選択してください");
