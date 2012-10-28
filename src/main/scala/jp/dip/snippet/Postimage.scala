@@ -10,8 +10,7 @@ import net.liftweb.http.{ FileParamHolder, RequestVar, S }
 import net.liftweb.util.Helpers._
 import net.liftweb.http.SHtml
 import jp.dip.model.Image
-import java.io.InputStream
-import java.io.FileOutputStream
+import net.liftweb.http.jquery
 
 class Postimage {
   //フォーム用の宣言
@@ -52,7 +51,6 @@ class Postimage {
    * ファイルアップロード用フォーム
    */
   def upload(xhtml: NodeSeq): NodeSeq = {
-
     bind("upload", xhtml,
       "file" -> SHtml.fileUpload(fh => img(Full(fh))),
       "submit" -> SHtml.submit("アップロード", add))

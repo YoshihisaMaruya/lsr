@@ -51,6 +51,14 @@ class Boot {
      */
     LiftRules.ajaxStart =
       Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
+      
+    
+    /**
+     * リソースファイル
+     */
+    ResourceServer.allow { 
+      	case "js" :: _ => true
+    }
 
     /*
      * Make the spinny image go away when it ends

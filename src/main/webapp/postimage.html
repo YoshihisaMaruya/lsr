@@ -1,4 +1,10 @@
 <div class="lift:surround?with=default;at=content">
+	<head>
+    <script src="/js/hogehoge.js"></script>
+    <style>
+      <!-- ここに css を記述 -->
+    </style>
+  </head>
   <h2>イメージ送信ページ</h2>
   <p>
   	<lift:msgs />
@@ -6,6 +12,7 @@
     <p><upload:file/></p>
     <p><upload:submit/></p>
     </lift:Postimage.upload>
+    <lift:resourceLoc.show />
   </p>
 </div>
 
