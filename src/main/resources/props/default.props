@@ -1,5 +1,9 @@
 # Properties in this file will be read when running in dev mode
+#mysql info
 db.driver=com.mysql.jdbc.Driver
 db.url=jdbc:mysql://localhost/lsr
 db.user=root
 db.password=ma1192
+
+#音声とサムネイルを保存するディレクトリ
+save.dirpath=/Applications/XAMPP/htdocs/video/
