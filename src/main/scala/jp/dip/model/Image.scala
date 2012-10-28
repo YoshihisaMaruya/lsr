@@ -49,8 +49,8 @@ class Image extends LongKeyedMapper[Image] with IdPK {
       val thumbnail_file_path = save_dir + id + ".jpg"
       val mv_cmds = extention match {
       	case "mp4" => {
-      	  //mp4の場合、mvnした後にサムネイル作成
-      	  Process("mv " + tmp_file_path + " "+ video_file_path) #| Process("ffmpeg -i " + video_file_path +" -ss 1 -vframes 1 -f image2 " + thumbnail_file_path) run
+      	  //mp4の場合¥
+      	 Process("ffmpeg -i " + tmp_file_path +" -ss 1 -vframes 1 -f image2 " + thumbnail_file_path) run
       	}
       	case "mov" =>{
       	  //movの場合、ffmpegの前にrmが終わってしまうので、rmできない 要対応
