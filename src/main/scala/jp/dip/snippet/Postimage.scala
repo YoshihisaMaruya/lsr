@@ -11,6 +11,7 @@ import net.liftweb.util.Helpers._
 import net.liftweb.http.SHtml
 import jp.dip.model.Image
 import net.liftweb.http.jquery
+import java.util.Formatter.DateTime
 
 class Postimage {
   //フォーム用の宣言
@@ -26,7 +27,9 @@ class Postimage {
    * ImageTableに保存
    */
   private def add() {
-     val f = img.is.openOr(null)
+     val f = this.img.is.openOr(null)
+     val lat = this.lat.is.openOr(null)
+     val lon = this.lat.is.openOr(null)
      f match {
       case FileParamHolder(_, mine, fname, file) => {
         log(mine)
@@ -34,7 +37,7 @@ class Postimage {
         image_model.save() //idを取得するために、一度保存
         try{
         	val file_path = image_model.saveFile(f)
-        	image_model.mimeType(mine).video_file_path(file_path._1).thumbnail_file_path(file_path._2).save
+        	image_model.mimeType(mine).video_file_path(file_path._1).lat(lat).lon(lon).created_datetime(new Date()).thumbnail_file_path(file_path._2).save
         }
         catch{
           case e => {
