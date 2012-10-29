@@ -15,7 +15,33 @@
  */
 
 window.onload = function(){
-    document.getElementById("nowload").style.display= "";
-    document.getElementById("contents").style.display= "none";
+    document.getElementById("nowloading").style.display= "";
+    document.getElementById("success").style.display= "none";
     gpsReceive();
 } 
+
+//gps受信用
+function gpsReceive(){
+    var position_options = {
+        enableHighAccuracy: true
+    };
+    if (navigator.geolocation) navigator.geolocation.watchPosition(gpsReceiveSuccess,gpsReceiveFailed,position_options);
+    else window.alert("");
+    navigator.geolocation.getCurrentPosition(
+        gpsReceiveSuccess, gpsReceiveFailed,position_options
+    );
+}
+
+//success
+function gpsReceiveSuccess(position){ 
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+    document.getElementById("nowloading").style.display= "none";
+    document.getElementById("success").style.display= "";
+    document.getElementById("lat").value = lat;
+    document.getElementById("lon").value = lng;
+}
+
+function gpsReceiveFailed(err){
+    document.querySelector('#gps_status').textContent = "not";
+}

@@ -15,8 +15,8 @@ import net.liftweb.http.jquery
 class Postimage {
   //フォーム用の宣言
   object img extends RequestVar[Box[FileParamHolder]](Empty)
-  object lat extends RequestVar(Empty)
-  object lon extends RequestVar(Empty)
+  object lat extends RequestVar[Box[String]](Empty)
+  object lon extends RequestVar[Box[String]](Empty)
 
   private def log(st: String) {
     println("##### " + st + "####")
@@ -51,8 +51,11 @@ class Postimage {
    * ファイルアップロード用フォーム
    */
   def upload(xhtml: NodeSeq): NodeSeq = {
+    //Ajaxのやり方を見直す必要あり(やらなくてもいいかもね!!)
     bind("upload", xhtml,
-      "file" -> SHtml.fileUpload(fh => img(Full(fh))),
+      "file" -> SHtml.fileUpload(fh => img(Full(fh)),"id" -> "file","accept" -> "video/*","capture" -> "camera"),
+      "lat" -> SHtml.text("",l => lat(Full(l)),"id" -> "lat","readonly" -> "readonly"), 
+      "lon" -> SHtml.text("",l => lon(Full(l)),"id" -> "lon","readonly" -> "readonly"),
       "submit" -> SHtml.submit("アップロード", add))
   }
 }
