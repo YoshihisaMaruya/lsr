@@ -42,7 +42,7 @@ class Postimage {
             S.error(e.getMessage())
             }
         }
-      }
+      } 
       case _ => S.error("ファイルを選択してください");
     }
   }
