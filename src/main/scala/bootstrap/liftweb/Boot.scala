@@ -42,7 +42,8 @@ class Boot {
       // Menu with special Link
       Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
 	       "Static Content")),
-	  Menu("動画のアップロード") / "postimage")
+	  Menu("動画のアップロード") / "postimage",
+	  Menu("閲覧ページ") / "viewimage")
 
     LiftRules.setSiteMapFunc(() => User.sitemapMutator(sitemap()))
 

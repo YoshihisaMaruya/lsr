@@ -38,6 +38,7 @@ class Postimage {
         try{
         	val file_path = image_model.saveFile(f)
         	image_model.mimeType(mine).video_file_path(file_path._1).lat(lat).lon(lon).created_datetime(new Date()).thumbnail_file_path(file_path._2).save
+        	S.notice("ファイルのアップロードに成功しました : id = " + image_model.id)
         }
         catch{
           case e => {
