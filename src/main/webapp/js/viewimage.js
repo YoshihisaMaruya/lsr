@@ -17,25 +17,26 @@ function drawmap(locations) {
 			animation : google.maps.Animation.DROP,
 		});
 		//マーカーにアクションをセット
-		attachMessage(myMarker, locations.loc[i].video_file_path);
+		attachMessage(myMarker, locations.loc[i]);
 	}
 }
 
 //マーカー上のhtml
-function createContentString(video_file_path) {
-	var contentString = '<a href="a.shtml" target="_top">フレームをすべて解除してリンクします</a>'
+function createContentString(info) {
+	var contentString = '<a rel="shadowbox;width=400;height=300" title="FLV動画" href="'+info.video_file_path+
+						'"><img src="' + info.thumbnail_file_path + '" width="200" height="180"/></a>'
 	return contentString
 }
 
 //マーカーのアクション
-function attachMessage(marker, video_file_path) {
+function attachMessage(marker, info) {
 	google.maps.event.addListener(marker, 'click', function() {
 		new google.maps.Geocoder().geocode({
 			latLng : marker.getPosition()
 		}, function(result, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				new google.maps.InfoWindow({
-					content : createContentString(video_file_path)
+					content : createContentString(info)
 				}).open(marker.getMap(), marker);
 			}
 		});

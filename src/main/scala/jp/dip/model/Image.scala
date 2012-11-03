@@ -60,7 +60,7 @@ class Image extends LongKeyedMapper[Image] with IdPK {
       	}
       	case _ => null
       }
-      val save_path = S.hostName + "/video/"
+      val save_path = "/video/"
       (save_path + id + ".flv",save_path + id + ".jpg")
     }
     

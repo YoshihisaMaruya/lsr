@@ -6,4 +6,4 @@ db.user=root
 db.password=ma1192
 
 #音声とサムネイルを保存するディレクトリ
-save.dirpath=/Applications/XAMPP/htdocs/video/
+save.dirpath=/Applications/XAMPP/htdocs/lsr/src/main/webapp/video/
