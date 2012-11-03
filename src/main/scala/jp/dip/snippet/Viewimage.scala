@@ -12,16 +12,21 @@ import js.JsCmds.JsCrVar
 import js.{JsObj, JE, JsCmd}
 import JE._
 import _root_.scala.xml.{NodeSeq, Text}
+import net.liftweb.http._
+import jp.dip.model.Image
 
 class Viewimage {
   // replace the contents of the element with what map to render
-  def howdy = renderGoogleMap()
+  def googlemap = renderGoogleMap()
  
   // converts a the location into a JSON Object
-  def makeLocation(title: String, lat: String, lng: String): JsObj = {
-    JsObj(("title", title),
-      ("lat", lat),
-      ("lng", lng))
+  def makeLocation(image: Image): JsObj = {
+    JsObj(("title", image.id.toString),
+      ("lat", image.lat.toString),
+      ("lng", image.lng.toString),
+      ("thumbnail_file_path",image.thumbnail_file_path.toString),
+      ("video_file_path",image.video_file_path.toString)
+      )
   }
  
    // called by renderGoogleMap which passes the list of locations
@@ -29,11 +34,27 @@ class Viewimage {
   def ajaxFunc(locobj: List[JsObj]): JsCmd = {
     JsCrVar("locations", JsObj(("loc", JsArray(locobj: _*)))) & JsRaw("drawmap(locations)").cmd
   }
+  
+  
+  def createData(d: List[Image],locations: List[JsObj]): List[JsObj] = {
+    d match {
+    	case h::t =>  createData(t, makeLocation(h)::locations)
+    	case Nil => locations
+    }
+  }
+  
+  //model
+  def getModelData() : List[JsObj] = {
+    val d = Image.findAll()
+    createData(d, Nil)
+  }
  
   // render the google map
   def renderGoogleMap(): NodeSeq = {
+    //set header(デフォルトではxhtmlのため)
+    S.setHeader("Content-Type", "text/html;charset=utf-8")
     // setup some locations to display on the map
-    val locations: List[JsObj] = List(makeLocation("loc1","40.744715", "-74.0046"),makeLocation("loc2","40.75684", "-73.9966"))
+    val locations: List[JsObj] = getModelData()
      
     // where the magic happens
     (<head>

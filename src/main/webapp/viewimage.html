@@ -1,14 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<div class="lift:surround?with=default;at=content">
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
-    <title>Google Maps JavaScript API サンプル</title>
     <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-        <script src="/js/viewimage.js"></script>
+    <script src="/js/viewimage.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/shadowbox/shadowbox.css"/>
+	<script type="text/javascript" src="/js/shadowbox/shadowbox.js"></script>
+	<script type="text/javascript">
+Shadowbox.init({
+language:   "ja",
+players:    ["flv","html","img","swf"]
+});
+</script>
 </head>
-<body onload="initialize()">
-    <p>Google Maps APIを使ったサンプルです。</p>
-    <div  id="map" style="width:500px; height:300px"></div>
-</body>
-</html>  
+    <lift:msgs />
+   	<lift:snippet type="Viewimage.googlemap"/>
+   	   <p><a rel="shadowbox;width=400;height=300" title="FLV動画" href="localhost/video/1.flv"><img src="localhost/video/1.jpg" width="200" height="180"/></a></p>
+    <!-- <div  id="map" style="width:500px; height:300px"></div> -->
+</div>
   

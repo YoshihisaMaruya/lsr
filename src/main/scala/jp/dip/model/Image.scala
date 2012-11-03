@@ -7,12 +7,13 @@ import java.io.InputStream
 import scala.sys.process.Process
 import java.io.FileOutputStream
 import org.apache.commons._
+import net.liftweb.http.S
 
 class Image extends LongKeyedMapper[Image] with IdPK {
   def getSingleton = Image
 
   object lat extends MappedString(this, 100) //軽度
-  object lon extends MappedString(this, 100) //緯度
+  object lng extends MappedString(this, 100) //緯度
   object wheather extends MappedString(this, 100) //天気 
   object mimeType extends MappedString(this, 100) //ファイル形式
   object video_file_path extends MappedString(this, 100) //ビデオファイルパス
@@ -50,7 +51,8 @@ class Image extends LongKeyedMapper[Image] with IdPK {
       val mv_cmds = extention match {
       	case "mp4" => {
       	  //mp4の場合¥
-      	 Process("ffmpeg -i " + tmp_file_path +" -ss 1 -vframes 1 -f image2 " + thumbnail_file_path) run
+      	 Process("cp " + tmp_file_path + " " + video_file_path).run
+      	 Process("ffmpeg -i " + tmp_file_path +" -ss 1 -vframes 1 -f image2 " + thumbnail_file_path).run
       	}
       	case "mov" =>{
       	  //movの場合、ffmpegの前にrmが終わってしまうので、rmできない 要対応
@@ -58,7 +60,8 @@ class Image extends LongKeyedMapper[Image] with IdPK {
       	}
       	case _ => null
       }
-      (video_file_path,thumbnail_file_path)
+      val save_path = S.hostName + "/video/"
+      (save_path + id + ".flv",save_path + id + ".jpg")
     }
     
 

@@ -39,7 +39,7 @@ function gpsReceiveSuccess(position){
     document.getElementById("nowloading").style.display= "none";
     document.getElementById("success").style.display= "";
     document.getElementById("lat").value = lat;
-    document.getElementById("lon").value = lng;
+    document.getElementById("lng").value = lng;
 }
 
 function gpsReceiveFailed(err){

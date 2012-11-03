@@ -17,7 +17,7 @@ class Postimage {
   //フォーム用の宣言
   object img extends RequestVar[Box[FileParamHolder]](Empty)
   object lat extends RequestVar[Box[String]](Empty)
-  object lon extends RequestVar[Box[String]](Empty)
+  object lng extends RequestVar[Box[String]](Empty)
 
   private def log(st: String) {
     println("##### " + st + "####")
@@ -29,7 +29,7 @@ class Postimage {
   private def add() {
      val f = this.img.is.openOr(null)
      val lat = this.lat.is.openOr(null)
-     val lon = this.lat.is.openOr(null)
+     val lng = this.lng.is.openOr(null)
      f match {
       case FileParamHolder(_, mine, fname, file) => {
         log(mine)
@@ -37,7 +37,7 @@ class Postimage {
         image_model.save() //idを取得するために、一度保存
         try{
         	val file_path = image_model.saveFile(f)
-        	image_model.mimeType(mine).video_file_path(file_path._1).lat(lat).lon(lon).created_datetime(new Date()).thumbnail_file_path(file_path._2).save
+        	image_model.mimeType(mine).video_file_path(file_path._1).lat(lat).lng(lng).created_datetime(new Date()).thumbnail_file_path(file_path._2).save
         	S.notice("ファイルのアップロードに成功しました : id = " + image_model.id)
         }
         catch{
@@ -59,7 +59,7 @@ class Postimage {
     bind("upload", xhtml,
       "file" -> SHtml.fileUpload(fh => img(Full(fh)),"id" -> "file","accept" -> "video/*","capture" -> "camera"),
       "lat" -> SHtml.text("",l => lat(Full(l)),"id" -> "lat","readonly" -> "readonly"), 
-      "lon" -> SHtml.text("",l => lon(Full(l)),"id" -> "lon","readonly" -> "readonly"),
+      "lng" -> SHtml.text("",l => lng(Full(l)),"id" -> "lng","readonly" -> "readonly"),
       "submit" -> SHtml.submit("アップロード", add))
   }
 }
