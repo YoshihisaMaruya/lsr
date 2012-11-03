@@ -1,9 +1,0 @@
-# Properties in this file will be read when running in dev mode
-#mysql info
-db.driver=com.mysql.jdbc.Driver
-db.url=jdbc:mysql://localhost/lsr
-db.user=root
-db.password=ganba
-
-#音声とサムネイルを保存するディレクトリ
-save.dirpath=/var/www/html/lsr/src/main/webapp/video/
