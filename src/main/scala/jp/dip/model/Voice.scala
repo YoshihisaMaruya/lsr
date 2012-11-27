@@ -38,7 +38,7 @@ class Voice extends LongKeyedMapper[Voice] with IdPK  {
 	   	case _ => throw new Exception(f.mimeType.toString() + "は受け付けられません")
 	  } 
 	  
-	   val os = new FileOutputStream(save_dir + id + "." + f.mimeType)
+	   val os = new FileOutputStream(save_dir + id + "." + e)
 	  try{
 		  org.apache.commons.io.IOUtils.copy(is,os)
       }catch {
