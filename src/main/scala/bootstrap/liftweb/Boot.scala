@@ -45,7 +45,7 @@ class Boot {
 	  Menu("動画のアップロード") / "postimage",
 	  Menu("音声のアップロード") / "postvoice",
 	  Menu("閲覧ページ(googlemap)") / "viewimage",
-	  Menu("閲覧ページ(list)") / "viewimagelists")
+	  Menu("閲覧ページ(動画,list)") / "viewimagelists")
 
     LiftRules.setSiteMap(sitemap)
 

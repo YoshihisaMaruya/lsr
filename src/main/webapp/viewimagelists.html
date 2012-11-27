@@ -1,26 +1,31 @@
 <div class="lift:surround?with=default;at=content">
 	<head>
-    <script src="/js/postimage.js"></script>
+    <script src="#">
+    	
+    </script>
     <style>
       <!-- ここに css を記述 -->
     </style>
   </head>
-  <h2>イメージ送信ページ</h2>
-  <div id = "nowloading">
-  <p>
-  	GPS受信中...
-  </p>
- </div>
- <div id = "success">
-  <p>
-  	<lift:msgs />
-    <lift:Postimage.upload form="POST" multipart="true">
-    <p><upload:file/></p>
-    <p><upload:submit/></p>
-    <p>経度　<upload:lat/></p>
-    <p>緯度　<upload:lng/></p>
-    </lift:Postimage.upload>
-  </p>
-  </div>
+  <lift:Viewimagelists.content>
+    <table>
+      <tr>
+        <th>id</th>
+        <th>緯度</th>
+        <th>軽度</th>
+        <th>天気</th>
+        <th>ダウンロード</th>
+      </tr>
+      <lists:videos>
+        <tr>
+          <td> <video_info:id /> </td>
+          <td> <video_info:lat /> </td>
+          <td> <video_info:lng /> </td>
+          <td> <video_info:wheather /> </td>
+          <td> <video_info:link /> </td>
+        </tr>
+      </lists:videos>
+    </table>
+ 	</lift:Viewimagelists.content>
 </div>
 
