@@ -33,6 +33,11 @@ class Voice extends LongKeyedMapper[Voice] with IdPK  {
       "/Users/tmp/"
 	   
 	   val is = f.fileStream
+	   val e = f.mimeType match { 
+	   	case "video/3gpp" => "3gpp" 
+	   	case _ => throw new Exception(f.mimeType.toString() + "は受け付けられません")
+	  } 
+	  
 	   val os = new FileOutputStream(save_dir + id + "." + f.mimeType)
 	  try{
 		  org.apache.commons.io.IOUtils.copy(is,os)
