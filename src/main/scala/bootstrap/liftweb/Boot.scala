@@ -34,18 +34,20 @@ class Boot {
     //ok
     // where to search snippet
     LiftRules.addToPackages("jp.dip")
-    Schemifier.schemify(true, Schemifier.infoF _, User,Image)
+    Schemifier.schemify(true, Schemifier.infoF _,Image,Voice)
 
     // Build SiteMap
     def sitemap() = SiteMap(
-      Menu("Home") / "index" >> User.AddUserMenusAfter, // Simple menu form
       // Menu with special Link
+      Menu("index") / "index",
       Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
 	       "Static Content")),
 	  Menu("動画のアップロード") / "postimage",
-	  Menu("閲覧ページ") / "viewimage")
+	  Menu("音声のアップロード") / "postvoice",
+	  Menu("閲覧ページ(googlemap)") / "viewimage",
+	  Menu("閲覧ページ(list)") / "viewimagelists")
 
-    LiftRules.setSiteMapFunc(() => User.sitemapMutator(sitemap()))
+    LiftRules.setSiteMap(sitemap)
 
     /*
      * Show the spinny image when an Ajax call starts
@@ -60,8 +62,6 @@ class Boot {
       Full(() => LiftRules.jsArtifacts.hide("ajax-loader").cmd)
 
     LiftRules.early.append(makeUtf8)
-
-    LiftRules.loggedInTest = Full(() => User.loggedIn_?)
 
     S.addAround(DB.buildLoanWrapper)
   }

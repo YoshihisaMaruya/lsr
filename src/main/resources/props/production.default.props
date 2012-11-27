@@ -6,4 +6,5 @@ db.user=root
 db.password=ganba
 
 #音声とサムネイルを保存するディレクトリ
-save.dirpath=/var/www/html/lsr/src/main/webapp/video/
+save_video.dirpath=/var/www/html/lsr/src/main/webapp/video/
+save_voice.dirpath=/var/www/html/lsr/src/main/webapp/voice/

@@ -26,9 +26,10 @@ class Image extends LongKeyedMapper[Image] with IdPK {
    */
   def saveFile(f: FileParamHolder): (String,String) = {
     //保存用ディレクトリ
-    val save_dir = Props.get("save.dirpath") openOr
+    val save_dir = Props.get("save_video.dirpath") openOr
       "/Users/tmp/"
 
+    print(save_dir)
     //ローカルファイル書き込み用
     /**
      * 動画を保存。サムレイルを作成

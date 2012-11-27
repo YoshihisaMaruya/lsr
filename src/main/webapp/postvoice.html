@@ -1,0 +1,26 @@
+<div class="lift:surround?with=default;at=content">
+	<head>
+    <script src="/js/postimage.js"></script>
+    <style>
+      <!-- ここに css を記述 -->
+    </style>
+  </head>
+  <h2>イメージ送信ページ</h2>
+  <div id = "nowloading">
+  <p>
+  	GPS受信中...
+  </p>
+ </div>
+ <div id = "success">
+  <p>
+  	<lift:msgs />
+    <lift:Postvoice.upload form="POST" multipart="true">
+    <p><upload:file/></p>
+    <p><upload:submit/></p>
+    <p>経度　<upload:lat/></p>
+    <p>緯度　<upload:lng/></p>
+    </lift:Postvoice.upload>
+  </p>
+  </div>
+</div>
+
