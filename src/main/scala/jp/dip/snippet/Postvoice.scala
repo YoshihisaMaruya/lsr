@@ -56,7 +56,7 @@ class Postvoice {
   def upload(xhtml: NodeSeq): NodeSeq = {
     //Ajaxのやり方を見直す必要あり(やらなくてもいいかもね!!)
     bind("upload", xhtml,
-      "file" -> SHtml.fileUpload(fh => voice(Full(fh)),"id" -> "file","accept" -> "sound/*","capture" -> "camera"),
+      "file" -> SHtml.fileUpload(fh => voice(Full(fh)),"id" -> "file","accept" -> "microphone/*","capture" -> "camera"),
       "lat" -> SHtml.text("",l => lat(Full(l)),"id" -> "lat","readonly" -> "readonly"), 
       "lng" -> SHtml.text("",l => lng(Full(l)),"id" -> "lng","readonly" -> "readonly"),
       "submit" -> SHtml.submit("アップロード", add))
