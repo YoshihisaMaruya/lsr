@@ -25,7 +25,7 @@ class Viewimagelists {
      
     def bindVideoInfo(template: NodeSeq): NodeSeq = {
     	 images.flatMap{ image => 
-    	   bind("video_info", template,"id" -> image.id,"lat" -> image.lat,"lng" -> image.lng,"wheather" -> image.wheather,"comment" -> image.comment, "link" -> <a href={image.video_file_path}><img  width="100" height="100" src={image.thumbnail_file_path}/></a>)   
+    	   bind("video_info", template,"id" -> image.id,"lat" -> image.lat,"lng" -> image.lng,"weather" -> image.weather,"comment" -> image.comment, "link" -> <a href={image.video_file_path}><img  width="100" height="100" src={image.thumbnail_file_path}/></a>)   
     	 }
     }
     

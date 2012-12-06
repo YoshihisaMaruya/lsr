@@ -12,6 +12,7 @@ import net.liftweb.http.SHtml
 import jp.dip.model.Voice
 import net.liftweb.http.jquery
 import java.util.Formatter.DateTime
+import jp.dip.roundvalley.scala.weather.WorldWeatherOnlineApiWrapper
 
 class Postvoice {
 //フォーム用の宣言
@@ -32,6 +33,7 @@ class Postvoice {
      val lat = this.lat.is.openOr(null)
      val lng = this.lng.is.openOr(null)
      val comment = this.comment.is.openOr(null)
+     val weather = WorldWeatherOnlineApiWrapper.getCurrentWeatherFromLatLon("24c7ab0480154422120512",lat,lng,"2")
      
      v match {
       case FileParamHolder(_, mine, fname, file) => {
@@ -39,7 +41,7 @@ class Postvoice {
     	  voice_model.save()
     	  try{
     	    val file_path = voice_model.saveFile(v)
-    	    voice_model.mimeType(v.mimeType).voice_file_path(file_path).lat(lat).lng(lng).created_datetime(new Date()).comment(comment).save
+    	    voice_model.mimeType(v.mimeType).voice_file_path(file_path).lat(lat).lng(lng).created_datetime(new Date()).comment(comment).weather(weather).save
         	S.notice("ファイルのアップロードに成功しました : id = " + voice_model.id)
     	  }
     	  catch{

@@ -12,6 +12,7 @@ import _root_.java.sql.{Connection, DriverManager}
 import _root_.jp.dip.model._
 
 
+
 /**
  * A class that's instantiated early and run.  It allows the application
  * to modify lift's environment

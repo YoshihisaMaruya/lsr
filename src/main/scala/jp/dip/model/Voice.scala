@@ -19,7 +19,7 @@ class Voice extends LongKeyedMapper[Voice] with IdPK  {
 
   object lat extends MappedString(this, 100) //軽度
   object lng extends MappedString(this, 100) //緯度
-  object wheather extends MappedString(this, 100) //天気 
+  object weather extends MappedString(this, 100) //天気 
   object mimeType extends MappedString(this, 100) //ファイル形式
   object voice_file_path extends MappedString(this, 100) //音声ファイルパス
   object created_datetime extends MappedDateTime(this) //作成時間

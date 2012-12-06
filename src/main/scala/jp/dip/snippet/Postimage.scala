@@ -12,6 +12,7 @@ import net.liftweb.http.SHtml
 import jp.dip.model.Image
 import net.liftweb.http.jquery
 import java.util.Formatter.DateTime
+import jp.dip.roundvalley.scala.weather.WorldWeatherOnlineApiWrapper
 
 class Postimage {
   //フォーム用の宣言
@@ -32,7 +33,7 @@ class Postimage {
      val lat = this.lat.is.openOr(null)
      val lng = this.lng.is.openOr(null)
      val comment = this.comment.is.openOr(null)
-     
+     val weather = WorldWeatherOnlineApiWrapper.getCurrentWeatherFromLatLon("24c7ab0480154422120512",lat,lng,"2")
      f match {
       case FileParamHolder(_, mine, fname, file) => {
         log(mine)
@@ -40,7 +41,7 @@ class Postimage {
         image_model.save() //idを取得するために、一度保存
         try{
         	val file_path = image_model.saveFile(f)
-        	image_model.mimeType(mine).video_file_path(file_path._1).lat(lat).lng(lng).created_datetime(new Date()).thumbnail_file_path(file_path._2).comment(comment).save
+        	image_model.mimeType(mine).video_file_path(file_path._1).lat(lat).lng(lng).created_datetime(new Date()).thumbnail_file_path(file_path._2).comment(comment).weather(weather).save
         	S.notice("ファイルのアップロードに成功しました : id = " + image_model.id)
         }
         catch{

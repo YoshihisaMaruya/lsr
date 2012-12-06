@@ -14,7 +14,7 @@ class Image extends LongKeyedMapper[Image] with IdPK {
 
   object lat extends MappedString(this, 100) //軽度
   object lng extends MappedString(this, 100) //緯度
-  object wheather extends MappedString(this, 100) //天気 
+  object weather extends MappedString(this, 100) //天気 
   object mimeType extends MappedString(this, 100) //ファイル形式
   object video_file_path extends MappedString(this, 100) //ビデオファイルパス
   object thumbnail_file_path extends MappedString(this, 100) //サムネイルパス
