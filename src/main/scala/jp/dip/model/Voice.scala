@@ -23,6 +23,7 @@ class Voice extends LongKeyedMapper[Voice] with IdPK  {
   object mimeType extends MappedString(this, 100) //ファイル形式
   object voice_file_path extends MappedString(this, 100) //音声ファイルパス
   object created_datetime extends MappedDateTime(this) //作成時間
+  object comment extends MappedString(this,100) //コメント
   
   /*
    * @return : 保存ファイルパス

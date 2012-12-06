@@ -19,6 +19,7 @@ class Image extends LongKeyedMapper[Image] with IdPK {
   object video_file_path extends MappedString(this, 100) //ビデオファイルパス
   object thumbnail_file_path extends MappedString(this, 100) //サムネイルパス
   object created_datetime extends MappedDateTime(this) //作成時間
+  object comment extends MappedString(this,100) //コメント
   
   /**
    * ファイルを保存(パスはprops参照)

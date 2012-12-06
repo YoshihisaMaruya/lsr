@@ -18,6 +18,7 @@ class Postvoice {
   object voice extends RequestVar[Box[FileParamHolder]](Empty)
   object lat extends RequestVar[Box[String]](Empty)
   object lng extends RequestVar[Box[String]](Empty)
+  object comment extends RequestVar[Box[String]](Empty)
 
   private def log(st: String) {
     println("##### " + st + "####")
@@ -30,13 +31,15 @@ class Postvoice {
      val v = this.voice.is.openOr(null)
      val lat = this.lat.is.openOr(null)
      val lng = this.lng.is.openOr(null)
+     val comment = this.comment.is.openOr(null)
+     
      v match {
       case FileParamHolder(_, mine, fname, file) => {
     	  val voice_model = Voice.create
     	  voice_model.save()
     	  try{
     	    val file_path = voice_model.saveFile(v)
-    	    voice_model.mimeType(v.mimeType).voice_file_path(file_path).lat(lat).lng(lng).created_datetime(new Date()).save
+    	    voice_model.mimeType(v.mimeType).voice_file_path(file_path).lat(lat).lng(lng).created_datetime(new Date()).comment(comment).save
         	S.notice("ファイルのアップロードに成功しました : id = " + voice_model.id)
     	  }
     	  catch{
@@ -59,6 +62,7 @@ class Postvoice {
       "file" -> SHtml.fileUpload(fh => voice(Full(fh)),"id" -> "file","accept" -> "sound/*","capture" -> "microphone"),
       "lat" -> SHtml.text("",l => lat(Full(l)),"id" -> "lat","readonly" -> "readonly"), 
       "lng" -> SHtml.text("",l => lng(Full(l)),"id" -> "lng","readonly" -> "readonly"),
+       "comment" -> SHtml.text("",c => comment(Full(c)),"id" -> "comment"),
       "submit" -> SHtml.submit("アップロード", add))
   }
 }
